@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/datnnt/Desktop/DatNNT/App/murmur-mac/logs/.7db4ab66645ab3294607303822b84b1430d7294c-audit.json",
+    "files": [
+        {
+            "date": 1780209482324,
+            "name": "/Users/datnnt/Desktop/DatNNT/App/murmur-mac/logs/mcp-puppeteer-2026-05-31.log",
+            "hash": "a37f3f583d61b9928b910852dc56aab6d6fd952fe38afe1161ca770d1efe7771"
+        }
+    ],
+    "hashType": "sha256"
+}

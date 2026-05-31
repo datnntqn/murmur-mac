@@ -1,0 +1,29 @@
+{"level":"info","message":"Starting MCP server","service":"mcp-puppeteer","timestamp":"2026-05-31 13:38:02.361"}
+{"level":"info","message":"MCP server started successfully","service":"mcp-puppeteer","timestamp":"2026-05-31 13:38:02.362"}
+{"arguments":{"url":"http://localhost:8765/index.html"},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:37.661","tool":"puppeteer_navigate"}
+{"0":"n","1":"p","2":"x","level":"info","message":"Launching browser with config:","service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:37.662"}
+{"level":"info","message":"Browser launched successfully","service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:39.495"}
+{"level":"info","message":"Navigating to URL","service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:39.495","url":"http://localhost:8765/index.html"}
+{"level":"info","message":"Navigation successful","service":"mcp-puppeteer","status":200,"timestamp":"2026-05-31 13:40:40.295","url":"http://localhost:8765/index.html"}
+{"arguments":{"script":"new Promise(r=>setTimeout(()=>{const s=document.querySelector('.shot');const f=s.querySelector('iframe');r(JSON.stringify({shotW:s.clientWidth,shotH:s.clientHeight,fitted:s.classList.contains('fitted'),iframeTransform:f.style.transform,iframeH:f.style.height}))},800))"},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:44.917","tool":"puppeteer_evaluate"}
+{"level":"debug","message":"Executing script in browser","scriptLength":268,"service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:44.917"}
+{"hasResult":false,"level":"debug","logCount":0,"message":"Script execution result","resultType":"undefined","service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:44.921"}
+{"arguments":{"height":800,"name":"shot","selector":".shot","width":600},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:40:49.962","tool":"puppeteer_screenshot"}
+{"arguments":{"height":640,"name":"full","width":1280},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:41:08.041","tool":"puppeteer_screenshot"}
+{"arguments":{"script":"window.scrollTo(0,0)"},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:41:13.879","tool":"puppeteer_evaluate"}
+{"level":"debug","message":"Executing script in browser","scriptLength":20,"service":"mcp-puppeteer","timestamp":"2026-05-31 13:41:13.880"}
+{"hasResult":false,"level":"debug","logCount":0,"message":"Script execution result","resultType":"undefined","service":"mcp-puppeteer","timestamp":"2026-05-31 13:41:13.881"}
+{"arguments":{"height":640,"name":"hero","width":1280},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:41:17.972","tool":"puppeteer_screenshot"}
+{"arguments":{"url":"http://localhost:8765/assets/og-template.html"},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:44:11.652","tool":"puppeteer_navigate"}
+{"level":"info","message":"Navigating to URL","service":"mcp-puppeteer","timestamp":"2026-05-31 13:44:11.654","url":"http://localhost:8765/assets/og-template.html"}
+{"level":"info","message":"Navigation successful","service":"mcp-puppeteer","status":200,"timestamp":"2026-05-31 13:44:12.361","url":"http://localhost:8765/assets/og-template.html"}
+{"arguments":{"height":630,"name":"og","width":1200},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:44:16.769","tool":"puppeteer_screenshot"}
+{"arguments":{"url":"http://localhost:8765/index.html"},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:02.941","tool":"puppeteer_navigate"}
+{"level":"info","message":"Navigating to URL","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:02.941","url":"http://localhost:8765/index.html"}
+{"level":"info","message":"Navigation successful","service":"mcp-puppeteer","status":200,"timestamp":"2026-05-31 13:47:03.546","url":"http://localhost:8765/index.html"}
+{"arguments":{"height":560,"name":"nav","width":1280},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:08.091","tool":"puppeteer_screenshot"}
+{"arguments":{"height":80,"name":"logo-zoom","selector":".logo","width":240},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:16.350","tool":"puppeteer_screenshot"}
+{"arguments":{"url":"http://localhost:8765/home-screen.html"},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:23.395","tool":"puppeteer_navigate"}
+{"level":"info","message":"Navigating to URL","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:23.395","url":"http://localhost:8765/home-screen.html"}
+{"level":"info","message":"Navigation successful","service":"mcp-puppeteer","status":200,"timestamp":"2026-05-31 13:47:23.967","url":"http://localhost:8765/home-screen.html"}
+{"arguments":{"height":60,"name":"hs-titlebar","selector":".titlebar","width":980},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:28.995","tool":"puppeteer_screenshot"}

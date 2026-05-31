@@ -23,23 +23,17 @@
   html,body{margin:0;height:100%}
   body{
     font-family:var(--font);
-    background:#e9e9ee;            /* desktop behind the app window */
+    background:transparent;        /* host frame provides the surround */
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
-    display:flex; align-items:center; justify-content:center;
-    min-height:100dvh; padding:32px;
+    display:block; padding:0;
   }
 
   /* ---------- macOS window chrome ---------- */
   .window{
-    width:min(980px,100%);
-    border-radius:14px;
+    width:100%;
     overflow:hidden;
     background:var(--paper);
-    box-shadow:
-      0 1px 0 rgba(255,255,255,.6) inset,
-      0 30px 80px -20px rgba(20,18,40,.45),
-      0 8px 24px -12px rgba(20,18,40,.3);
     position:relative;
     isolation:isolate;
   }
@@ -172,24 +166,7 @@
     <div class="titlebar">
       <div class="lights"><span class="r"></span><span class="y"></span><span class="g"></span></div>
       <div class="brand">
-        <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
-          <defs>
-            <linearGradient id="m" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#7B2FF7"/><stop offset=".5" stop-color="#FF3B30"/><stop offset="1" stop-color="#007AFF"/>
-            </linearGradient>
-          </defs>
-          <rect width="48" height="48" rx="13" fill="#fff"/>
-          <g stroke="url(#m)" stroke-width="3.4" stroke-linecap="round">
-            <line x1="24" y1="9"  x2="24" y2="17"/>
-            <line x1="35" y1="13" x2="31" y2="20"/>
-            <line x1="39" y1="24" x2="31" y2="24"/>
-            <line x1="35" y1="35" x2="31" y2="28"/>
-            <line x1="13" y1="13" x2="17" y2="20"/>
-            <line x1="9"  y1="24" x2="17" y2="24"/>
-            <line x1="13" y1="35" x2="17" y2="28"/>
-          </g>
-          <text x="24" y="30" text-anchor="middle" font-size="15" font-weight="800" fill="#1c1b22" font-family="-apple-system,sans-serif">m</text>
-        </svg>
+        <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="hs-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#EDEFF5"/></linearGradient><linearGradient id="hs-m" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7B2FF7"/><stop offset=".143" stop-color="#E0218A"/><stop offset=".286" stop-color="#FF3B30"/><stop offset=".429" stop-color="#FF9500"/><stop offset=".571" stop-color="#FFCC00"/><stop offset=".714" stop-color="#34C759"/><stop offset=".857" stop-color="#32ADE6"/><stop offset="1" stop-color="#007AFF"/></linearGradient></defs><rect x="4.32" y="4.32" width="39.36" height="39.36" rx="8.856" fill="url(#hs-bg)" stroke="rgba(28,27,34,.08)"/><rect x="23.472" y="30.48" width="1.056" height="6.96" rx="0.528" fill="#7B2FF7" transform="rotate(0 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.711" rx="0.528" fill="#8B2DE6" transform="rotate(8.182 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.59" rx="0.528" fill="#9B2BD4" transform="rotate(16.364 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.745" rx="0.528" fill="#AB28C3" transform="rotate(24.545 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.648" rx="0.528" fill="#BB26B2" transform="rotate(32.727 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.152" rx="0.528" fill="#CB24A0" transform="rotate(40.909 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.762" rx="0.528" fill="#DB228F" transform="rotate(49.091 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.428" rx="0.528" fill="#E42480" transform="rotate(57.273 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.892" rx="0.528" fill="#E82871" transform="rotate(65.455 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.572" rx="0.528" fill="#ED2C63" transform="rotate(73.636 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.344" rx="0.528" fill="#F23055" transform="rotate(81.818 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.8" rx="0.528" fill="#F73446" transform="rotate(90 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.259" rx="0.528" fill="#FC3938" transform="rotate(98.182 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.03" rx="0.528" fill="#FF412D" transform="rotate(106.364 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.486" rx="0.528" fill="#FF4F25" transform="rotate(114.545 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.533" rx="0.528" fill="#FF5E1D" transform="rotate(122.727 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.826" rx="0.528" fill="#FF6C16" transform="rotate(130.909 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.085" rx="0.528" fill="#FF7A0E" transform="rotate(139.091 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.159" rx="0.528" fill="#FF8907" transform="rotate(147.273 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.388" rx="0.528" fill="#FF9600" transform="rotate(155.455 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.721" rx="0.528" fill="#FF9F00" transform="rotate(163.636 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.838" rx="0.528" fill="#FFA800" transform="rotate(171.818 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.905" rx="0.528" fill="#FFB000" transform="rotate(180 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.278" rx="0.528" fill="#FFB900" transform="rotate(188.182 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.279" rx="0.528" fill="#FFC200" transform="rotate(196.364 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.904" rx="0.528" fill="#FFCB00" transform="rotate(204.545 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.838" rx="0.528" fill="#E3CB0C" transform="rotate(212.727 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.721" rx="0.528" fill="#C3CB1A" transform="rotate(220.909 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.387" rx="0.528" fill="#A3CA28" transform="rotate(229.091 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.16" rx="0.528" fill="#82C937" transform="rotate(237.273 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.084" rx="0.528" fill="#62C845" transform="rotate(245.455 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.826" rx="0.528" fill="#42C753" transform="rotate(253.636 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.534" rx="0.528" fill="#34C566" transform="rotate(261.818 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.485" rx="0.528" fill="#34C07C" transform="rotate(270 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.031" rx="0.528" fill="#33BC93" transform="rotate(278.182 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.258" rx="0.528" fill="#33B8A9" transform="rotate(286.364 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.8" rx="0.528" fill="#33B4C0" transform="rotate(294.545 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.344" rx="0.528" fill="#32B0D6" transform="rotate(302.727 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.572" rx="0.528" fill="#30ABE7" transform="rotate(310.909 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.892" rx="0.528" fill="#28A3EB" transform="rotate(319.091 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="8.427" rx="0.528" fill="#209AEF" transform="rotate(327.273 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.762" rx="0.528" fill="#1892F3" transform="rotate(335.455 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="7.153" rx="0.528" fill="#108AF7" transform="rotate(343.636 24 24)"/><rect x="23.472" y="30.48" width="1.056" height="9.647" rx="0.528" fill="#0882FB" transform="rotate(351.818 24 24)"/><text x="24" y="24" text-anchor="middle" dominant-baseline="central" font-family="'SF Pro Rounded',-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-weight="800" font-size="13.5" fill="url(#hs-m)">m</text></svg>
         Murmur
       </div>
       <div class="spacer"></div>
