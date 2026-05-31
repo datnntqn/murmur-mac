@@ -27,3 +27,5 @@
 {"level":"info","message":"Navigating to URL","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:23.395","url":"http://localhost:8765/home-screen.html"}
 {"level":"info","message":"Navigation successful","service":"mcp-puppeteer","status":200,"timestamp":"2026-05-31 13:47:23.967","url":"http://localhost:8765/home-screen.html"}
 {"arguments":{"height":60,"name":"hs-titlebar","selector":".titlebar","width":980},"level":"debug","message":"Tool call received","service":"mcp-puppeteer","timestamp":"2026-05-31 13:47:28.995","tool":"puppeteer_screenshot"}
+{"level":"info","message":"Starting MCP server","service":"mcp-puppeteer","timestamp":"2026-05-31 13:54:40.756"}
+{"level":"info","message":"MCP server started successfully","service":"mcp-puppeteer","timestamp":"2026-05-31 13:54:40.757"}
