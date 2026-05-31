@@ -469,6 +469,7 @@
         <ul>
           <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>On-device transcription, unlimited words</li>
           <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Push-to-talk and Cmd-Shift-D toggle</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Live preview as you speak</li>
           <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Voice formatting, auto-recovery</li>
           <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Network audit log and air-gap mode</li>
         </ul>
@@ -480,10 +481,11 @@
         <div class="tag">Launch price, first 30 days</div>
         <ul>
           <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Everything in Free</li>
-          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Whisper large-v3-turbo, plus on-device AI cleanup on Apple Silicon</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Whisper large-v3-turbo, plus on-device AI cleanup (macOS 26+ Apple Silicon)</li>
           <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Foot pedal, continuous mode</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Custom vocabulary and voice commands</li>
           <li style="opacity:.62"><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg></span>Wake word <span style="margin-left:6px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#f0a4cf;background:rgba(216,27,131,.22);padding:2px 8px;border-radius:999px;vertical-align:middle">Coming soon</span></li>
-          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Custom vocabulary, macros, voice editing</li>
+          <li style="opacity:.62"><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg></span>Macros &amp; snippets <span style="margin-left:6px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#f0a4cf;background:rgba(216,27,131,.22);padding:2px 8px;border-radius:999px;vertical-align:middle">Coming soon</span></li>
           <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Priority email support</li>
         </ul>
         <a class="btn" href="#">Download for Mac</a>
@@ -500,7 +502,7 @@
       <details open><summary>Does my audio ever leave my Mac?<span class="plus"></span></summary>
         <p>No. Transcription and AI cleanup run on-device. The only network calls Murmur makes are update checks, license validation, and model downloads, and each one is written to a log you can inspect. Turn on air-gap mode and even those stop.</p></details>
       <details><summary>Will it run on my Mac?<span class="plus"></span></summary>
-        <p>Murmur needs macOS 14 or later and runs on both Apple Silicon and Intel. The fastest large model and on-device AI cleanup want 16 GB of memory on Apple Silicon. On lighter machines you still get reliable transcription with a smaller model.</p></details>
+        <p>Murmur needs macOS 14 or later and runs on both Apple Silicon and Intel. On-device AI cleanup uses Apple Intelligence, so it needs macOS 26 or later on Apple Silicon (with 16 GB of memory recommended for the fastest large model). On earlier macOS or Intel you still get reliable transcription — cleanup is just disabled there.</p></details>
       <details><summary>Is this a subscription?<span class="plus"></span></summary>
         <p>No. Pro is a one-time purchase. You keep the version you bought, and you get updates for as long as Murmur is actively developed. There is no account and no recurring charge.</p></details>
       <details><summary>Which foot pedals work?<span class="plus"></span></summary>
