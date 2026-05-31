@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Murmur - Private, accessibility-grade Mac dictation</title>
+<meta name="description" content="Mac dictation that respects your privacy and your hands. 100% on-device transcription and AI cleanup, foot pedal and continuous mode for full days of voice. One-time purchase, no cloud." />
+<meta property="og:title" content="Murmur - Private, accessibility-grade Mac dictation" />
+<meta property="og:description" content="Hold a key, speak, and your words appear in any app. Nothing leaves your Mac. Built for full days of dictation." />
+<meta property="og:type" content="website" />
+<style>
+  :root{
+    --violet:#7B2FF7; --magenta:#E0218A; --red:#FF3B30; --orange:#FF9500;
+    --yellow:#FFCC00; --green:#34C759; --cyan:#32ADE6; --blue:#007AFF; --accent:#D81B83;
+    --paper:#FAFAF8; --ink:#1c1b22; --muted:#6b6a76; --line:rgba(28,27,34,.09);
+    --card:#ffffff; --grad:#D81B83;
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,system-ui,sans-serif;
+    --max:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--font);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  h2{font-size:clamp(26px,3.4vw,40px);font-weight:750;letter-spacing:-.8px;line-height:1.08;margin:14px 0 0}
+  .sub{color:var(--muted);font-size:16.5px;line-height:1.6;max-width:60ch;margin:12px 0 0}
+  /* intentional rhythm, not a uniform slab: grouped story sections sit tighter,
+     the page breathes a little more before the pricing/CTA finale */
+  section{padding:clamp(44px,5.5vw,66px) 0}
+  .contrast,.access{padding-top:clamp(38px,4.6vw,54px);padding-bottom:clamp(38px,4.6vw,54px)}
+  .pricing{padding-top:clamp(54px,6.4vw,80px)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px;border:0;cursor:pointer;
+    border-radius:13px;padding:13px 22px;color:#fff;background:var(--grad);box-shadow:0 14px 30px -12px rgba(170,15,100,.55);
+    transition:transform .15s, box-shadow .15s}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 18px 36px -12px rgba(170,15,100,.6)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 6px 18px -12px rgba(20,18,40,.4)}
+  .btn small{font-weight:500;opacity:.8;font-size:12px}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:50;background:rgba(250,250,248,.78);backdrop-filter:saturate(160%) blur(16px);
+    border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;gap:26px;height:66px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.2px}
+  .logo .mk{width:26px;height:26px;border-radius:8px;display:block}
+  nav .links{display:flex;gap:24px;margin-left:14px;font-size:14.5px;color:#3a3942;font-weight:500}
+  nav .links a:hover{color:var(--accent)}
+  nav .spacer{flex:1}
+  @media(max-width:760px){nav .links{display:none}}
+
+  /* hero */
+  .hero{padding:44px 0 54px;position:relative;overflow:hidden}
+  .hero .aurora{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .hero .aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.4}
+  .hero .aurora .v{width:520px;height:520px;left:-180px;top:-220px;background:radial-gradient(circle,var(--accent),transparent 62%)}
+  .hero .aurora .b{width:560px;height:560px;right:-220px;top:-260px;background:radial-gradient(circle,var(--accent),transparent 62%)}
+  .hero .aurora .m{width:420px;height:420px;left:30%;bottom:-280px;background:radial-gradient(circle,var(--cyan),transparent 62%)}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.02fr 1.1fr;gap:48px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#1d6b3f;
+    background:rgba(52,199,89,.12);border:1px solid rgba(52,199,89,.28);padding:6px 13px;border-radius:999px}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2.6s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,199,89,.5)}70%{box-shadow:0 0 0 7px rgba(52,199,89,0)}100%{box-shadow:0 0 0 0 rgba(52,199,89,0)}}
+  .hero h1{font-size:clamp(34px,5vw,58px);font-weight:780;letter-spacing:-1.6px;line-height:1.02;margin:18px 0 0}
+  .hero p.lead{font-size:18px;color:#3a3942;line-height:1.55;max-width:34ch;margin:18px 0 0}
+  .hero .cta{display:flex;gap:13px;align-items:center;margin-top:28px;flex-wrap:wrap}
+  .hero .req{margin-top:14px;font-size:13px;color:var(--muted)}
+
+  /* product shot frame (live mockup) */
+  .shot{position:relative;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);
+    box-shadow:0 40px 90px -30px rgba(20,18,40,.5);aspect-ratio:980/700}
+  .shot iframe{position:absolute;top:0;left:0;width:163.3%;height:163.3%;border:0;transform:scale(.6125);transform-origin:top left}
+  .shot-fallback{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center;padding:20px}
+
+  /* waveform divider */
+  .wavebar{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:34px;margin:0 auto}
+  .wavebar .bar{width:5px;border-radius:4px;height:30%;transform-origin:bottom;animation:breathe 2.6s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+  /* problem / contrast */
+  .contrast{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .contrast .row{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  @media(max-width:860px){.contrast .row{grid-template-columns:1fr;gap:24px}}
+  .contrast blockquote{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:650;letter-spacing:-.5px;line-height:1.25}
+  .contrast .note{color:var(--muted);font-size:15px;line-height:1.6;border-left:2px solid var(--line);padding-left:18px}
+  .contrast .note b{color:var(--ink)}
+
+  /* privacy proof: audit panel */
+  .proof-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;margin-top:26px}
+  @media(max-width:900px){.proof-grid{grid-template-columns:1fr;gap:30px}}
+  .proof ul.checks{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:14px}
+  .proof ul.checks li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+  .proof ul.checks .ic{width:24px;height:24px;border-radius:7px;background:rgba(52,199,89,.14);color:#1d7a45;display:grid;place-items:center;flex:none;margin-top:1px}
+  .proof ul.checks b{font-weight:650}
+  .proof ul.checks span.d{color:var(--muted)}
+  .auditcard{background:#101018;border-radius:16px;padding:20px;color:#e9e9f0;box-shadow:0 30px 70px -28px rgba(10,8,30,.7);font-family:ui-monospace,"SF Mono",Menlo,monospace}
+  .auditcard .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;font-family:var(--font)}
+  .auditcard .top .ttl{font-size:13px;font-weight:600;color:#cfcfe0}
+  .auditcard .top .live{font-size:11px;color:#7fe0a0;display:flex;align-items:center;gap:6px}
+  .auditcard .top .live i{width:7px;height:7px;border-radius:50%;background:#34c759;display:inline-block;animation:pulse 2s infinite}
+  .auditcard .l{font-size:12.5px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;gap:10px;color:#bfbfd2}
+  .auditcard .l .t{color:#6f6f86}
+  .auditcard .l .r{margin-left:auto;color:#f0a4cf}
+  .auditcard .blocked{margin-top:14px;font-family:var(--font);font-size:12.5px;color:#ff9aa0;display:flex;align-items:center;gap:8px}
+  .auditcard .blocked s{color:#7a7a90}
+
+  /* accessibility */
+  .access{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .access-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+  @media(max-width:900px){.access-grid{grid-template-columns:1fr;gap:30px}}
+  .qcard{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    padding:28px 30px 24px;box-shadow:0 26px 60px -34px rgba(20,18,40,.5)}
+  .qcard .mark{font-size:52px;line-height:.5;color:var(--accent);font-weight:800;height:24px}
+  .qcard blockquote{margin:16px 0 0;font-size:20px;font-weight:620;letter-spacing:-.3px;line-height:1.42;color:#26252c}
+  .qcard .attr{margin-top:20px;display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding-top:16px}
+  .qcard .attr .n{font-weight:700;font-size:14.5px}
+  .qcard .attr .r{font-size:12.5px;color:var(--muted)}
+  .featlist{margin:24px 0 0;display:grid;gap:18px}
+  .featlist .f{display:flex;gap:14px}
+  .featlist .f .n{width:34px;height:34px;border-radius:10px;background:rgba(216,27,131,.1);color:var(--accent);display:grid;place-items:center;flex:none}
+  .featlist .f h4{margin:0;font-size:16px;font-weight:680}
+  .featlist .f p{margin:3px 0 0;color:var(--muted);font-size:14.5px;line-height:1.5}
+
+  /* how it works */
+  .how{text-align:center}
+  .how .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:32px;position:relative}
+  @media(max-width:760px){.how .steps{grid-template-columns:1fr;gap:34px}}
+  .how .s{padding:0 20px;position:relative}
+  .how .s .num{font-size:46px;font-weight:780;letter-spacing:-2px;line-height:1}
+  .how .s h4{margin:14px 0 0;font-size:18px;font-weight:700}
+  .how .s p{margin:8px auto 0;color:var(--muted);font-size:14.5px;max-width:30ch}
+  .how .s:not(:last-child)::after{content:"";position:absolute;top:22px;right:-4px;width:8px;height:8px;
+    border-top:2px solid var(--line);border-right:2px solid var(--line);transform:rotate(45deg)}
+  @media(max-width:760px){.how .s:not(:last-child)::after{display:none}}
+
+  /* comparison table */
+  .cmp{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;margin-top:26px;font-size:14.5px;min-width:680px}
+  th,td{padding:15px 16px;text-align:left;border-bottom:1px solid var(--line)}
+  thead th{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.2px}
+  tbody td:first-child{font-weight:600;color:#3a3942}
+  th.us,td.us{background:rgba(216,27,131,.05)}
+  thead th.us{color:var(--accent);font-weight:750;font-size:15px;border-top-left-radius:12px;border-top-right-radius:12px}
+  .yes{color:#1d7a45;font-weight:650}
+  .no{color:#b0303a;font-weight:600}
+  .meh{color:var(--muted)}
+
+  /* pricing */
+  .pricing{background:#fff;border-top:1px solid var(--line)}
+  .tiers{display:grid;grid-template-columns:1fr 1.08fr;gap:22px;margin-top:30px;max-width:860px;margin-left:auto;margin-right:auto}
+  @media(max-width:760px){.tiers{grid-template-columns:1fr}}
+  .tier{border:1px solid var(--line);border-radius:20px;padding:28px;background:var(--paper)}
+  .tier.pro{position:relative;border:0;background:#101018;color:#ececf4;box-shadow:0 40px 90px -34px rgba(10,8,30,.65)}
+  .tier .name{font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .tier.pro .name{color:#b9b9d0}
+  .tier .price{font-size:46px;font-weight:780;letter-spacing:-1.5px;margin:10px 0 0;display:flex;align-items:baseline;gap:10px}
+  .tier .price s{font-size:22px;font-weight:500;color:var(--muted);letter-spacing:0}
+  .tier .price small{font-size:15px;font-weight:500;color:var(--muted)}
+  .tier.pro .price small{color:#9a9ab4}
+  .tier .tag{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:600;color:var(--accent);background:rgba(216,27,131,.1);padding:4px 10px;border-radius:999px}
+  .tier.pro .tag{color:#f0a4cf;background:rgba(216,27,131,.22)}
+  .tier ul{list-style:none;margin:20px 0 24px;padding:0;display:grid;gap:11px;font-size:14.5px}
+  .tier li{display:flex;gap:10px;align-items:flex-start}
+  .tier li .c{color:var(--green);flex:none;margin-top:2px}
+  .tier.pro li .c{color:#7fe0a0}
+  .tier .btn{width:100%;justify-content:center}
+  .tier.pro .btn{background:#fff;color:#101018}
+
+  /* faq */
+  .faq-list{margin-top:24px;max-width:760px}
+  details{border-bottom:1px solid var(--line);padding:6px 0}
+  summary{cursor:pointer;list-style:none;padding:16px 0;font-size:16.5px;font-weight:620;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary .plus{width:22px;height:22px;flex:none;position:relative;transition:transform .25s}
+  summary .plus::before,summary .plus::after{content:"";position:absolute;background:var(--accent);border-radius:2px}
+  summary .plus::before{top:10px;left:3px;width:16px;height:2px}
+  summary .plus::after{top:3px;left:10px;width:2px;height:16px;transition:opacity .25s}
+  details[open] summary .plus::after{opacity:0}
+  details[open] summary .plus{transform:rotate(90deg)}
+  details p{margin:0 0 18px;color:var(--muted);font-size:15px;line-height:1.65;max-width:64ch}
+
+  /* final cta */
+  .final{text-align:center}
+  .final-card{position:relative;overflow:hidden;background:#101018;border-radius:26px;padding:50px 28px;color:#fff}
+  .final-card .aurora2{position:absolute;inset:0;opacity:.5}
+  .final-card .aurora2 i{position:absolute;border-radius:50%;filter:blur(80px)}
+  .final-card .aurora2 .v{width:360px;height:360px;left:-80px;top:-120px;background:radial-gradient(circle,var(--accent),transparent 60%)}
+  .final-card .aurora2 .b{width:360px;height:360px;right:-80px;bottom:-140px;background:radial-gradient(circle,var(--accent),transparent 60%)}
+  .final-card h2{position:relative;color:#fff}
+  .final-card p{position:relative;color:#c7c7d8;margin:16px auto 0;max-width:46ch}
+  .final-card .btn{position:relative;margin-top:28px;background:#fff;color:#101018}
+
+  footer{padding:46px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+  footer .frow{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+  footer .flinks{display:flex;gap:22px;flex-wrap:wrap}
+  footer a:hover{color:var(--ink)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .wavebar .bar,.badge .dot,.auditcard .top .live i{animation:none!important}
+    html{scroll-behavior:auto}
+  }
+  svg{display:block}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="wrap"><nav>
+    <a class="logo" href="#top">
+      <svg class="mk" viewBox="0 0 48 48" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7B2FF7"/><stop offset=".5" stop-color="#FF3B30"/><stop offset="1" stop-color="#007AFF"/></linearGradient></defs>
+        <rect width="48" height="48" rx="13" fill="#fff" stroke="rgba(28,27,34,.08)"/>
+        <g stroke="url(#lg)" stroke-width="3.4" stroke-linecap="round">
+          <line x1="24" y1="9" x2="24" y2="17"/><line x1="35" y1="13" x2="31" y2="20"/><line x1="39" y1="24" x2="31" y2="24"/>
+          <line x1="35" y1="35" x2="31" y2="28"/><line x1="13" y1="13" x2="17" y2="20"/><line x1="9" y1="24" x2="17" y2="24"/><line x1="13" y1="35" x2="17" y2="28"/></g>
+        <text x="24" y="30" text-anchor="middle" font-size="15" font-weight="800" fill="#1c1b22">m</text>
+      </svg>
+      Murmur
+    </a>
+    <div class="links">
+      <a href="#privacy">Privacy</a>
+      <a href="#accessibility">Accessibility</a>
+      <a href="#compare">Compare</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="spacer"></div>
+    <a class="btn" href="#pricing">Download for Mac</a>
+  </nav></div>
+</header>
+
+<a id="top"></a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="aurora"><i class="v"></i><i class="b"></i><i class="m"></i></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge"><span class="dot"></span>100% on-device. Verifiably.</span>
+      <h1>Mac dictation that respects your <span class="grad">privacy</span> and your <span class="grad">hands</span>.</h1>
+      <p class="lead">Hold a key, speak, and your words appear in any app. Transcription and AI cleanup run on this Mac. Nothing is uploaded.</p>
+      <div class="cta">
+        <a class="btn" href="#pricing">Download for Mac <small>Free</small></a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <div class="req">macOS 14 and later. Apple Silicon or Intel. No account, no cloud.</div>
+    </div>
+    <div class="shot" aria-label="Murmur home screen">
+      <div class="shot-fallback">Live preview of the Murmur home screen</div>
+      <iframe src="home-screen.html" title="Murmur home screen preview" scrolling="no" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM / CONTRAST -->
+<section class="contrast" id="why">
+  <div class="wrap row reveal">
+    <blockquote>Your dictation app should not read your screen, log your keystrokes, or quietly upload your audio.</blockquote>
+    <div class="note">
+      <p>In 2025 a popular cloud dictation app was found capturing every keypress system-wide and uploading audio and screenshots, even with sharing switched off. The fix is not a setting. It is an architecture.</p>
+      <p><b>Murmur never had a cloud to leak from.</b> The model runs on your Mac, so privacy is something you can verify, not a promise you have to trust.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY PROOF -->
+<section id="privacy">
+  <div class="wrap reveal">
+    <span class="eyebrow">Verifiable privacy</span>
+    <h2>See exactly what leaves your Mac.<br>It is almost nothing.</h2>
+    <div class="proof-grid proof">
+      <ul class="checks">
+        <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>On-device transcription and AI cleanup.</b> <span class="d">Whisper and the cleanup model run locally. No API keys, no servers.</span></div></li>
+        <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Network egress audit log.</b> <span class="d">Every call the app makes is logged with its reason. Inspect it any time.</span></div></li>
+        <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Air-gap mode.</b> <span class="d">Flip one switch and nothing reaches the network. Confirm it with Little Snitch or LuLu.</span></div></li>
+        <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>No analytics SDK.</b> <span class="d">No Sentry, no Mixpanel, no telemetry on by default. Crash reports stay local.</span></div></li>
+      </ul>
+      <div class="auditcard" aria-label="Network activity log">
+        <div class="top"><span class="ttl">Network Activity</span><span class="live"><i></i>live</span></div>
+        <div class="l"><span class="t">09:14</span><span>update_check</span><span class="r">app.murmur</span></div>
+        <div class="l"><span class="t">08:02</span><span>license_validate</span><span class="r">api.lemonsqueezy</span></div>
+        <div class="l"><span class="t">07:55</span><span>model_download</span><span class="r">models.murmur</span></div>
+        <div class="blocked"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff9aa0" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M5 5l14 14"/></svg> <s>your audio, your transcripts, your screen: never sent</s></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESSIBILITY -->
+<section class="access" id="accessibility">
+  <div class="wrap access-grid reveal">
+    <div>
+      <span class="eyebrow">Built for full days</span>
+      <h2>Dragon for Mac is gone. This is built to last.</h2>
+      <p class="sub">Voice users who dictate all day were left without a native Mac option for years. Murmur is built for them, not just for quick bursts.</p>
+      <div class="featlist">
+        <div class="f"><div class="n"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="13" width="16" height="7" rx="3"/><path d="M12 13V7"/></svg></div>
+          <div><h4>Foot pedal support</h4><p>Hands-free start and stop over USB HID. No other Mac dictation app does this. The VEC Infinity is the officially supported pedal.</p></div></div>
+        <div class="f"><div class="n"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8v8M19 8v8"/></svg></div>
+          <div><h4>Continuous mode</h4><p>The mic stays open and segments on your pauses, so you can dictate for hours without holding a key.</p></div></div>
+        <div class="f"><div class="n"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h10M4 17h7"/></svg></div>
+          <div><h4>Edit by voice</h4><p>Say "scratch that" to remove your last line or "capitalize that" to fix a word, without reaching for the keyboard.</p></div></div>
+      </div>
+    </div>
+    <figure class="qcard">
+      <div class="mark">“</div>
+      <blockquote>I do not have a plan B for writing anything. Apple's own offering is far inferior to Dragon for Mac.</blockquote>
+      <figcaption class="attr">
+        <span class="n">Colin Hughes</span>
+        <span class="r">Disabled Mac user, after Dragon for Mac shut down. Via The Register.</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="wrap reveal">
+    <h2>Three keys to your first sentence.</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;text-align:center">No setup ritual. Grant two permissions once, then dictate anywhere.</p>
+    <div class="wavebar" id="wavebar" style="margin-top:30px"></div>
+    <div class="steps">
+      <div class="s"><div class="num grad">1</div><h4>Hold or toggle</h4><p>Hold Right-Option, or press Cmd-Shift-D to toggle. Your choice.</p></div>
+      <div class="s"><div class="num grad">2</div><h4>Speak naturally</h4><p>Whisper punctuates as you talk. Say "new line" or "new paragraph" for structure.</p></div>
+      <div class="s"><div class="num grad">3</div><h4>It appears</h4><p>Cleaned text lands at your cursor in any app, on this Mac.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="wrap reveal">
+    <span class="eyebrow">How it compares</span>
+    <h2>On-device, accessibility-grade, paid once.</h2>
+    <div class="cmp">
+      <table>
+        <thead><tr>
+          <th></th><th class="us">Murmur</th><th>Wispr Flow</th><th>MacWhisper</th><th>Superwhisper</th><th>VoiceInk</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Price</td><td class="us"><b>$49 once</b></td><td>$15 / month</td><td>$99 once</td><td>$249 once</td><td>$39 once</td></tr>
+          <tr><td>Runs fully on-device</td><td class="us"><span class="yes">Yes</span></td><td><span class="no">No, cloud</span></td><td><span class="yes">Yes</span></td><td><span class="yes">Yes</span></td><td><span class="yes">Yes</span></td></tr>
+          <tr><td>AI cleanup, no API key</td><td class="us"><span class="yes">Yes</span></td><td><span class="meh">Cloud</span></td><td><span class="meh">Limited</span></td><td><span class="yes">Yes</span></td><td><span class="no">Needs key</span></td></tr>
+          <tr><td>Foot pedal</td><td class="us"><span class="yes">Yes</span></td><td><span class="no">No</span></td><td><span class="no">No</span></td><td><span class="no">No</span></td><td><span class="no">No</span></td></tr>
+          <tr><td>Built for 8-hour days</td><td class="us"><span class="yes">Yes</span></td><td><span class="meh">Partly</span></td><td><span class="meh">Partly</span></td><td><span class="meh">Partly</span></td><td><span class="no">No</span></td></tr>
+          <tr><td>Network audit log</td><td class="us"><span class="yes">Yes</span></td><td><span class="no">No</span></td><td><span class="no">No</span></td><td><span class="no">No</span></td><td><span class="no">No</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="wrap reveal" style="text-align:center">
+    <span class="eyebrow">Pricing</span>
+    <h2>Buy it once. Keep it.</h2>
+    <p class="sub" style="margin:14px auto 0">No subscription, ever. Pro is a one-time purchase with updates for as long as Murmur is actively developed.</p>
+    <div class="tiers" style="text-align:left">
+      <div class="tier">
+        <div class="name">Free</div>
+        <div class="price">$0</div>
+        <div class="tag">Yours forever</div>
+        <ul>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>On-device transcription, unlimited words</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Push-to-talk and Cmd-Shift-D toggle</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Voice formatting, auto-recovery</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Network audit log and air-gap mode</li>
+        </ul>
+        <a class="btn ghost" href="#">Download for Mac</a>
+      </div>
+      <div class="tier pro">
+        <div class="name">Pro</div>
+        <div class="price">$29 <s>$49</s> <small>once</small></div>
+        <div class="tag">Launch price, first 30 days</div>
+        <ul>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Everything in Free</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Whisper large-v3-turbo, plus on-device AI cleanup on Apple Silicon</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Foot pedal, continuous mode, wake word</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Custom vocabulary, macros, voice editing</li>
+          <li><span class="c"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Priority email support</li>
+        </ul>
+        <a class="btn" href="#">Download for Mac</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap reveal">
+    <h2>Questions, answered plainly.</h2>
+    <div class="faq-list">
+      <details open><summary>Does my audio ever leave my Mac?<span class="plus"></span></summary>
+        <p>No. Transcription and AI cleanup run on-device. The only network calls Murmur makes are update checks, license validation, and model downloads, and each one is written to a log you can inspect. Turn on air-gap mode and even those stop.</p></details>
+      <details><summary>Will it run on my Mac?<span class="plus"></span></summary>
+        <p>Murmur needs macOS 14 or later and runs on both Apple Silicon and Intel. The fastest large model and on-device AI cleanup want 16 GB of memory on Apple Silicon. On lighter machines you still get reliable transcription with a smaller model.</p></details>
+      <details><summary>Is this a subscription?<span class="plus"></span></summary>
+        <p>No. Pro is a one-time purchase. You keep the version you bought, and you get updates for as long as Murmur is actively developed. There is no account and no recurring charge.</p></details>
+      <details><summary>Which foot pedals work?<span class="plus"></span></summary>
+        <p>The VEC Infinity USB pedal is the officially supported model. Several others, including Olympus and generic HID pedals, are reported to work and are fully mappable, though they are not officially verified yet.</p></details>
+      <details><summary>How do I get Murmur?<span class="plus"></span></summary>
+        <p>Download it directly from this site. Murmur is notarized by Apple, so it installs and updates without the Mac App Store, and Pro is a one-time purchase through our checkout.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap reveal">
+    <div class="final-card">
+      <div class="aurora2"><i class="v"></i><i class="b"></i></div>
+      <h2>Your voice. Your Mac. Nowhere else.</h2>
+      <p>Start dictating in under two minutes. Free to try, on-device from the first word.</p>
+      <a class="btn" href="#pricing">Download for Mac</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap frow">
+    <div class="logo"><svg class="mk" viewBox="0 0 48 48" aria-hidden="true"><use href="#lg"/><rect width="48" height="48" rx="13" fill="#fff" stroke="rgba(28,27,34,.08)"/><g stroke="url(#lg)" stroke-width="3.4" stroke-linecap="round"><line x1="24" y1="9" x2="24" y2="17"/><line x1="35" y1="13" x2="31" y2="20"/><line x1="39" y1="24" x2="31" y2="24"/><line x1="35" y1="35" x2="31" y2="28"/><line x1="13" y1="13" x2="17" y2="20"/><line x1="9" y1="24" x2="17" y2="24"/><line x1="13" y1="35" x2="17" y2="28"/></g><text x="24" y="30" text-anchor="middle" font-size="15" font-weight="800" fill="#1c1b22">m</text></svg> Murmur</div>
+    <div class="flinks">
+      <a href="#privacy">Privacy</a><a href="#accessibility">Accessibility</a><a href="#compare">Compare</a><a href="#pricing">Pricing</a><a href="#">Support</a>
+    </div>
+    <div>On-device dictation for macOS.</div>
+  </div>
+</footer>
+
+<script>
+  // spectrum waveform divider
+  const stops=[[123,47,247],[224,33,138],[255,59,48],[255,149,0],[255,204,0],[52,199,89],[50,173,230],[0,122,255]];
+  function rgbAt(t){t=Math.min(1,Math.max(0,t));const x=t*(stops.length-1),i=Math.floor(x),f=x-i;
+    const a=stops[i],b=stops[Math.min(i+1,stops.length-1)];const c=a.map((v,k)=>Math.round(v+(b[k]-v)*f));return`rgb(${c[0]},${c[1]},${c[2]})`}
+  const wb=document.getElementById('wavebar');
+  if(wb){const N=40;for(let i=0;i<N;i++){const t=i/(N-1),bell=Math.sin(Math.PI*t),h=0.25+0.75*bell;
+    const bar=document.createElement('div');bar.className='bar';bar.style.background=rgbAt(t);bar.style.height=(h*100)+'%';
+    bar.style.animationDelay=(-(t*2.2))+'s';bar.style.animationDuration=(2.2+bell*0.8)+'s';wb.appendChild(bar)}}
+
+  // scroll reveal (IntersectionObserver, not scroll listeners)
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.16});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Murmur - Home screen mockup</title>
+<style>
+  :root{
+    /* Spectrum brand stops (Violet -> Blue) */
+    --violet:#7B2FF7; --magenta:#E0218A; --red:#FF3B30; --orange:#FF9500;
+    --yellow:#FFCC00; --green:#34C759; --cyan:#32ADE6; --blue:#007AFF; --accent:#D81B83;
+
+    --paper:#FAFAF8;        /* warm off-white aurora base */
+    --ink:#1c1b22;          /* near-black, warm */
+    --muted:#6b6a76;
+    --hair:rgba(28,27,34,.08);
+    --card:rgba(255,255,255,.92);
+    --radius:18px;
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:var(--font);
+    background:#e9e9ee;            /* desktop behind the app window */
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100dvh; padding:32px;
+  }
+
+  /* ---------- macOS window chrome ---------- */
+  .window{
+    width:min(980px,100%);
+    border-radius:14px;
+    overflow:hidden;
+    background:var(--paper);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.6) inset,
+      0 30px 80px -20px rgba(20,18,40,.45),
+      0 8px 24px -12px rgba(20,18,40,.3);
+    position:relative;
+    isolation:isolate;
+  }
+
+  /* Aurora mesh background (violet TL, blue TR, magenta BR) */
+  .aurora{position:absolute; inset:0; z-index:0; overflow:hidden}
+  .aurora::before,.aurora::after,.aurora i{content:""; position:absolute; border-radius:50%; filter:blur(70px); opacity:.5}
+  .aurora::before{width:420px;height:420px;left:-120px;top:-140px;background:radial-gradient(circle,var(--accent),transparent 62%)}
+  .aurora::after{width:460px;height:460px;right:-150px;top:-180px;background:radial-gradient(circle,var(--accent),transparent 62%)}
+  .aurora i{width:420px;height:420px;right:-80px;bottom:-200px;background:radial-gradient(circle,var(--cyan),transparent 62%)}
+
+  .titlebar{
+    position:relative; z-index:2;
+    height:46px; display:flex; align-items:center; gap:12px;
+    padding:0 16px;
+    background:rgba(255,255,255,.55);
+    backdrop-filter:saturate(160%) blur(18px);
+    border-bottom:1px solid var(--hair);
+  }
+  .lights{display:flex; gap:8px}
+  .lights span{width:12px;height:12px;border-radius:50%}
+  .lights .r{background:#ff5f57} .lights .y{background:#febc2e} .lights .g{background:#28c840}
+
+  .brand{display:flex; align-items:center; gap:9px; margin-left:6px; font-weight:600; letter-spacing:.1px}
+  .brand .mark{width:22px;height:22px;border-radius:7px;display:block}
+  .titlebar .spacer{flex:1}
+
+  .privacy-pill{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:12px; font-weight:600; color:#1d6b3f;
+    background:rgba(52,199,89,.12);
+    border:1px solid rgba(52,199,89,.28);
+    padding:5px 11px; border-radius:999px;
+  }
+  .privacy-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(52,199,89,.6);animation:pulse 2.6s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,199,89,.5)}70%{box-shadow:0 0 0 7px rgba(52,199,89,0)}100%{box-shadow:0 0 0 0 rgba(52,199,89,0)}}
+
+  .icon-btn{width:30px;height:30px;border-radius:9px;border:1px solid var(--hair);background:rgba(255,255,255,.6);
+    display:grid;place-items:center;color:var(--muted);cursor:pointer;transition:transform .15s, background .15s}
+  .icon-btn:hover{background:#fff;color:var(--ink)}
+  .icon-btn:active{transform:scale(.95)}
+
+  /* ---------- content ---------- */
+  .content{position:relative; z-index:1; padding:24px 30px 22px}
+
+  /* Hero */
+  .hero{display:flex; flex-direction:column; align-items:center; text-align:center; padding:12px 0 8px}
+  .wave{display:flex; align-items:flex-end; gap:5px; height:92px; margin-bottom:16px}
+  .wave .bar{width:7px; border-radius:6px; height:18%; transform-origin:bottom;
+    animation:breathe 2.8s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:scaleY(.42)}50%{transform:scaleY(1)}}
+
+  .status{font-size:30px; font-weight:700; letter-spacing:-.6px; margin:0}
+  .hint{margin:9px 0 0; color:var(--muted); font-size:15px; max-width:46ch; line-height:1.5}
+  .kbd{display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--ink);
+    background:rgba(255,255,255,.85);border:1px solid var(--hair);border-bottom-width:2px;
+    border-radius:7px;padding:2px 7px;font-size:13px;margin:0 1px}
+
+  .modes{display:inline-flex;margin-top:20px;padding:4px;gap:3px;border-radius:12px;
+    background:rgba(255,255,255,.7);border:1px solid var(--hair)}
+  .modes button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:600;
+    padding:7px 14px;border-radius:9px;cursor:pointer}
+  .modes button.on{background:var(--ink);color:#fff;box-shadow:0 2px 8px -2px rgba(20,18,40,.4)}
+
+  /* Trust + capability strip */
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 4px}
+  .tile{background:var(--card);border:1px solid var(--hair);border-radius:14px;padding:14px;
+    box-shadow:0 8px 24px -20px rgba(20,18,40,.5)}
+  .tile .row{display:flex;align-items:center;gap:8px}
+  .tile .glyph{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none}
+  .tile h4{margin:0;font-size:12.5px;font-weight:600;color:var(--muted)}
+  .tile .val{margin:9px 0 0;font-size:14px;font-weight:600;letter-spacing:-.2px;line-height:1.35}
+  .tile .sub{margin:3px 0 0;font-size:12px;color:var(--muted)}
+  .g-privacy{background:rgba(52,199,89,.14);color:#1d7a45}
+  .g-access{background:rgba(216,27,131,.12);color:var(--accent)}
+  .g-model{background:rgba(216,27,131,.12);color:var(--accent)}
+  .g-ai{background:rgba(216,27,131,.12);color:var(--accent)}
+
+  /* Recent transcripts */
+  .recent-head{display:flex;align-items:baseline;justify-content:space-between;margin:22px 2px 10px}
+  .recent-head h3{margin:0;font-size:15px;font-weight:700;letter-spacing:-.2px}
+  .recent-head a{font-size:13px;color:var(--accent);text-decoration:none;font-weight:600}
+  .cards{display:flex;flex-direction:column;gap:10px}
+  .tcard{background:#fff;border:1px solid var(--hair);border-radius:14px;padding:14px 16px;
+    display:flex;gap:14px;align-items:flex-start;box-shadow:0 10px 30px -24px rgba(20,18,40,.7);
+    transition:transform .15s, box-shadow .15s}
+  .tcard:hover{transform:translateY(-1px);box-shadow:0 16px 36px -22px rgba(20,18,40,.7)}
+  .tcard:hover .actions{opacity:1}
+  .tcard .meta{flex:none;width:96px}
+  .tcard .app{font-size:12.5px;font-weight:600}
+  .tcard .time{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .tcard .text{flex:1;font-size:14px;line-height:1.5;color:#2c2b33}
+  .tcard .badge{display:inline-block;font-size:10.5px;font-weight:600;color:var(--accent);
+    background:rgba(216,27,131,.1);border-radius:6px;padding:1px 6px;margin-top:6px}
+  .actions{display:flex;gap:6px;opacity:0;transition:opacity .15s}
+  .actions button{width:30px;height:30px;border-radius:9px;border:1px solid var(--hair);
+    background:#fff;color:var(--muted);cursor:pointer;display:grid;place-items:center;transition:.12s}
+  .actions button:hover{color:var(--ink);background:#f6f6fa}
+  .actions button.del:hover{color:#fff;background:var(--red);border-color:var(--red)}
+
+  /* Footer */
+  .footer{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--hair)}
+  .pro{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted)}
+  .pro b{color:var(--ink)}
+  .upgrade{font:inherit;font-size:13px;font-weight:700;color:#fff;border:0;cursor:pointer;
+    padding:8px 16px;border-radius:10px;
+    background:#D81B83;box-shadow:0 8px 20px -8px rgba(170,15,100,.6)}
+  .upgrade:active{transform:translateY(1px)}
+  .footer .links{display:flex;gap:18px;font-size:13px;color:var(--muted)}
+  .footer .links span{cursor:pointer}
+  .footer .links span:hover{color:var(--ink)}
+
+  svg{display:block}
+
+  @media (prefers-reduced-motion: reduce){
+    .wave .bar{animation:none !important;transform:scaleY(.7)}
+    .privacy-pill .dot{animation:none}
+  }
+  @media (max-width:720px){
+    .strip{grid-template-columns:repeat(2,1fr)}
+    .tcard .meta{width:78px}
+  }
+</style>
+</head>
+<body>
+  <main class="window" role="img" aria-label="Murmur app home screen mockup">
+    <div class="aurora"><i></i></div>
+
+    <!-- title bar -->
+    <div class="titlebar">
+      <div class="lights"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="m" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7B2FF7"/><stop offset=".5" stop-color="#FF3B30"/><stop offset="1" stop-color="#007AFF"/>
+            </linearGradient>
+          </defs>
+          <rect width="48" height="48" rx="13" fill="#fff"/>
+          <g stroke="url(#m)" stroke-width="3.4" stroke-linecap="round">
+            <line x1="24" y1="9"  x2="24" y2="17"/>
+            <line x1="35" y1="13" x2="31" y2="20"/>
+            <line x1="39" y1="24" x2="31" y2="24"/>
+            <line x1="35" y1="35" x2="31" y2="28"/>
+            <line x1="13" y1="13" x2="17" y2="20"/>
+            <line x1="9"  y1="24" x2="17" y2="24"/>
+            <line x1="13" y1="35" x2="17" y2="28"/>
+          </g>
+          <text x="24" y="30" text-anchor="middle" font-size="15" font-weight="800" fill="#1c1b22" font-family="-apple-system,sans-serif">m</text>
+        </svg>
+        Murmur
+      </div>
+      <div class="spacer"></div>
+      <div class="privacy-pill"><span class="dot"></span>On-device · Offline</div>
+      <button class="icon-btn" title="Settings" aria-label="Settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+
+    <!-- content -->
+    <div class="content">
+      <!-- hero -->
+      <section class="hero">
+        <div class="wave" id="wave" aria-hidden="true"></div>
+        <h1 class="status">Ready to dictate</h1>
+        <p class="hint">Hold <span class="kbd">⌥ Right Option</span> and speak, or press <span class="kbd">⌘⇧D</span> to toggle. Text appears at your cursor, on this Mac.</p>
+        <div class="modes" role="tablist" aria-label="Capture mode">
+          <button class="on">Push to talk</button>
+          <button>Tap to toggle</button>
+          <button>Wake word</button>
+          <button>Foot pedal</button>
+        </div>
+      </section>
+
+      <!-- trust + capability strip -->
+      <section class="strip" aria-label="Status">
+        <div class="tile">
+          <div class="row"><div class="glyph g-privacy">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div><h4>Privacy</h4></div>
+          <p class="val">100% on-device</p>
+          <p class="sub">0 network calls today · audit log</p>
+        </div>
+        <div class="tile">
+          <div class="row"><div class="glyph g-access">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"/><path d="M5 8h14M12 8v6m0 0-3 6m3-6 3 6"/></svg>
+          </div><h4>Accessibility</h4></div>
+          <p class="val">Foot pedal ready</p>
+          <p class="sub">VEC Infinity · continuous mode on</p>
+        </div>
+        <div class="tile">
+          <div class="row"><div class="glyph g-model">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
+          </div><h4>Model</h4></div>
+          <p class="val">Whisper large-v3-turbo</p>
+          <p class="sub">2.2% WER · runs on the Neural Engine</p>
+        </div>
+        <div class="tile">
+          <div class="row"><div class="glyph g-ai">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5z"/></svg>
+          </div><h4>AI cleanup</h4></div>
+          <p class="val">On, per app</p>
+          <p class="sub">Removes filler · fixes punctuation</p>
+        </div>
+      </section>
+
+      <!-- recent transcripts -->
+      <div class="recent-head">
+        <h3>Recent</h3>
+        <a href="#">Open history</a>
+      </div>
+      <section class="cards" aria-label="Recent transcripts">
+        <article class="tcard">
+          <div class="meta"><div class="app">Mail</div><div class="time">just now</div></div>
+          <div class="text">Thanks for the detailed notes. I reviewed the contract and the indemnity clause looks fine, so let us move ahead with signing on Thursday.
+            <span class="badge">cleaned</span></div>
+          <div class="actions">
+            <button title="Copy" aria-label="Copy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+            <button title="Re-insert" aria-label="Re-insert"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M11 6l6 6-6 6M21 5v14"/></svg></button>
+            <button class="del" title="Delete" aria-label="Delete"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2m-9 0 1 13a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2l1-13"/></svg></button>
+          </div>
+        </article>
+        <article class="tcard">
+          <div class="meta"><div class="app">Cursor</div><div class="time">4 min ago</div></div>
+          <div class="text">Refactor the license validator so the segment length check runs before the checksum, and add a test for the empty key case.
+            <span class="badge" style="color:#6b6a76;background:rgba(28,27,34,.06)">raw, code mode</span></div>
+          <div class="actions">
+            <button title="Copy" aria-label="Copy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+            <button title="Re-insert" aria-label="Re-insert"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M11 6l6 6-6 6M21 5v14"/></svg></button>
+            <button class="del" title="Delete" aria-label="Delete"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2m-9 0 1 13a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2l1-13"/></svg></button>
+          </div>
+        </article>
+        <article class="tcard">
+          <div class="meta"><div class="app">Slack</div><div class="time">12 min ago</div></div>
+          <div class="text">Standup update. Chunk 17 license layer is on the branch, validator and response decode are covered, moving to receipt verification next.</div>
+          <div class="actions">
+            <button title="Copy" aria-label="Copy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+            <button title="Re-insert" aria-label="Re-insert"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M11 6l6 6-6 6M21 5v14"/></svg></button>
+            <button class="del" title="Delete" aria-label="Delete"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2m-9 0 1 13a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2l1-13"/></svg></button>
+          </div>
+        </article>
+      </section>
+
+      <!-- footer -->
+      <div class="footer">
+        <div class="pro"><b>Murmur Free</b> · custom vocabulary, macros and continuous mode are Pro</div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="links"><span>Settings</span><span>Quit</span></div>
+          <button class="upgrade">Upgrade to Pro · $29</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script>
+  // Spectrum stops Violet -> Blue (matches UI/Spectrum.swift brand palette)
+  const stops = [[123,47,247],[224,33,138],[255,59,48],[255,149,0],[255,204,0],[52,199,89],[50,173,230],[0,122,255]];
+  function rgbAt(t){
+    t = Math.min(1, Math.max(0, t));
+    const x = t*(stops.length-1), i = Math.floor(x), f = x-i;
+    const a = stops[i], b = stops[Math.min(i+1, stops.length-1)];
+    const c = a.map((v,k)=>Math.round(v+(b[k]-v)*f));
+    return `rgb(${c[0]},${c[1]},${c[2]})`;
+  }
+  // Bell envelope so the middle bars are tallest (matches Spectrum.barEnvelope)
+  const N = 34, wave = document.getElementById('wave');
+  for(let i=0;i<N;i++){
+    const t = i/(N-1);
+    const bell = Math.sin(Math.PI*t);            // 0 at edges, 1 in middle
+    const ripple = 0.85 + 0.15*Math.sin(t*Math.PI*6);
+    const h = (0.2 + 0.8*bell*ripple);           // 0.2 .. 1.0
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.background = rgbAt(t);
+    bar.style.height = (h*100) + '%';
+    bar.style.animationDelay = (-(t*2.4)) + 's'; // staggered breathe -> travelling shimmer
+    bar.style.animationDuration = (2.4 + bell*0.9) + 's';
+    wave.appendChild(bar);
+  }
+  // capture-mode toggle (visual only)
+  document.querySelectorAll('.modes button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.modes button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+  });
+</script>
+</body>
+</html>
